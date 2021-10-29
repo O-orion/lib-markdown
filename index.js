@@ -1,6 +1,6 @@
 const chalck = require('chalk');
 const fs = require('fs');
-
+const path = require('path');
 
 function extrairLinks(texto){
     const regex = /\[([^\]]*)\]\((https?:\/\/[^$#\s].[^\s]*)\)/gm;
@@ -13,7 +13,7 @@ function extrairLinks(texto){
         })
     }
 
-    return arrayResultados;
+    return arrayResultados.length === 0 ? "Não existe nenhum link, lamento!" : arrayResultados;
 }
 
 function tratamentoError(erro){
@@ -22,17 +22,23 @@ function tratamentoError(erro){
 //asaync -> avisa ao Js que essa função é assicrona
 async function pegaArquivo(caminho){
     //async await não muda a sintaxe
+    const caminhoAbsoluto = path.join(__dirname,'/',caminho)
+    console.log(caminhoAbsoluto)
     const encoding = 'utf-8';
     try{ //tenta executar
-        const texto = await fs.promises.readFile(caminho, encoding); //await indica o que eu vou espera carrega
+        const arquivos = await fs.promises.readdir(caminhoAbsoluto, { encoding })
+        console.log(arquivos)
+        const result = await Promise.all(arquivos.map(async (arquivo) => {
+            const localArquivo = `${caminhoAbsoluto}/${arquivo}`
+            const texto = await fs.promises.readFile(localArquivo, encoding)
+            return extrairLinks(texto)
+        }))
+        return result
+        //const texto = await fs.promises.readFile(caminho, encoding); //await indica o que eu vou espera carrega
         //vai executa primeiro tudo o que está ao seu lado direito pra depois joga na variavel
-        console.log(extrairLinks(texto))
     }catch(erro){ //se tiver erro me avisa
         tratamentoError(erro)
     }
-
-
-
 }
 
 /* com then
@@ -54,11 +60,8 @@ function pegandoArquivo(caminho){
     })
 }
 */
-pegaArquivo('./arquivos/texto1.md');
-
-
-
+//pegaArquivo('./arquivos/texto1.md');
 console.log(chalck.red("DEUS É BOM!!"));
 
-
+module.exports = pegaArquivo;
 
