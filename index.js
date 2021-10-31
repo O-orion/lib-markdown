@@ -22,18 +22,18 @@ function tratamentoError(erro){
 //asaync -> avisa ao Js que essa função é assicrona
 async function pegaArquivo(caminho){
     //async await não muda a sintaxe
-    const caminhoAbsoluto = path.join(__dirname,'/',caminho)
-    console.log(caminhoAbsoluto)
+    //const caminhoAbsoluto = path.join(__dirname,'/',caminho)
+
     const encoding = 'utf-8';
     try{ //tenta executar
-        const arquivos = await fs.promises.readdir(caminhoAbsoluto, { encoding })
-        console.log(arquivos)
-        const result = await Promise.all(arquivos.map(async (arquivo) => {
-            const localArquivo = `${caminhoAbsoluto}/${arquivo}`
-            const texto = await fs.promises.readFile(localArquivo, encoding)
-            return extrairLinks(texto)
-        }))
-        return result
+        //const arquivos = await fs.promises.readdir(caminhoAbsoluto, { encoding })
+
+       // const result = await Promise.all(arquivos.map(async (arquivo) => {
+        //const localArquivo = `${caminhoAbsoluto}/${arquivo}`
+        const texto = await fs.promises.readFile(caminho, encoding)
+        return extrairLinks(texto)
+       // }))
+        //return result
         //const texto = await fs.promises.readFile(caminho, encoding); //await indica o que eu vou espera carrega
         //vai executa primeiro tudo o que está ao seu lado direito pra depois joga na variavel
     }catch(erro){ //se tiver erro me avisa
