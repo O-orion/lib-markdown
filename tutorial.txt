@@ -1,0 +1,9 @@
+npm init - criando um projeto
+npm init -y - dando sim para todas as perguntas
+npm -> gerenciador de pacotes do node, node packge manage
+é um repositorio de codigo aberto, onde a comunidade dev disponibiliza libs ou qualquer outro
+que ela desenvolve
+
+biblioteca é um pacote de dados, pacote de dados é um conjunto de instruções que realizam uma tarefa
+
+

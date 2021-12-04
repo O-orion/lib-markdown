@@ -1,13 +1,22 @@
 const fetch = require('node-fetch');
 
+function errorExibir(error){
+    
+}
+
 async function checaStatus(urlsArrays){
     //promises async await
-    const arrayStatus = await Promise
-                                     .all(urlsArrays.map(async url => {
-                                         const res = await fetch(url);
-                                         return res.status;
+    try {
+        const arrayStatus = await Promise
+                                        .all(urlsArrays.map(async url => {
+                                            const res = await fetch(url);
+                                            return res.status;
                                         }))
-    return arrayStatus;
+        return arrayStatus;        
+    } catch (error) {
+        
+    }
+
 }
 
 function  geraArrayDeUrl(array){
