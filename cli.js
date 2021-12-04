@@ -1,6 +1,6 @@
-const pegaArquivo = require('./index')
+const pegaArquivo = require('./index.js')
 const chalk = require('chalk')
-const validaUrl = require('./http-validcao')
+const validaUrl = require('./http-validcao.js')
 
 const caminho = process.argv;
 
